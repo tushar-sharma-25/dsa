@@ -1,31 +1,38 @@
-import { Stack } from "./ADT/stack.js";
+import { Queue } from "./ADT/queue.js";
 
 (() => {
-    SimplifyPath('/../')
-
+    let ip =  new Queue(5);
+    ip.enqueue(1);
+    ip.enqueue(2);
+    ip.enqueue(3);
+    ip.enqueue(4);
+    ip.enqueue(5);
+    // let val = ip.dequeue();
+    let op = reverseQueue(ip);
+    op.print();
+/**
+ * input [1 2 3 4 5]
+ * output [5 4 3 2 1]
+ * 
+ *  1 , 2,
+ * 1 2 3 
+ */
 })()
 /**
- * 
- * @param {string} path 
- * @returns {string}
+ * reverse a queue 
+ * @param {Queue} queue 
+ * @returns {Queue}
  */
-function SimplifyPath(path){
-    let stack =  new Stack(path.length);
-    let pathArray =  path.split('/');
-    for(let i =0;i<pathArray.length;i++){
-        if(pathArray[i]==='.' || pathArray[i]===''){
-            continue;
-        }
-        else if(pathArray[i]==='..'){
-            stack.pop();
-        }
-        else{
-            stack.push(pathArray[i]);
-        }
+function reverseQueue(queue){
+    let temp = [];
+    let result =  new Queue(queue.getCapacity());
+    while(queue.getSize()>0){
+        temp.push(queue.dequeue());
+    }
+
+    for(let i=temp.length-1;i>=0;i--){
+        result.enqueue(temp[i]);
     }
     
-    
-   return stack.print();
-    
-
+   return result;
 }
